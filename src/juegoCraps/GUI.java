@@ -122,7 +122,7 @@ public class GUI extends JFrame {
              modelCraps.determinarJuego();
 
              panelResultados.removeAll();
-            panelResultados.setBorder(BorderFactory.createTitledBorder("Resultados "));
+             panelResultados.setBorder(BorderFactory.createTitledBorder("Resultados "));
              panelResultados.add(resultadosDados);
              panelResultados.add(separator);
              panelResultados.add(mensajeSalida);
