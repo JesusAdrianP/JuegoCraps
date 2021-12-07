@@ -26,9 +26,10 @@ public class GUI extends JFrame {
     private JButton lanzar;
     private JPanel panelDados, panelResultados;
     private ImageIcon imageDado;
-    private JTextArea resultados;
+    private JTextArea mensajeSalida, resultadosDados;
     private Escucha escucha;
     private ModelCraps modelCraps;
+    private JSeparator separator;
 
     /**
      * Constructor of GUI class
@@ -75,11 +76,22 @@ public class GUI extends JFrame {
 
         this.add(panelDados, BorderLayout.CENTER);
 
-        resultados = new JTextArea(7,31);
-        resultados.setText(MENSAJE_INICIO);
-        resultados.setBorder(BorderFactory.createTitledBorder("Qué debes hacer "));
-        JScrollPane scroll = new JScrollPane(resultados);
-        this.add(scroll,BorderLayout.EAST);
+        mensajeSalida = new JTextArea(7,31);
+        mensajeSalida.setText(MENSAJE_INICIO);
+        //mensajeSalida.setBorder(BorderFactory.createTitledBorder("Qué debes hacer "));
+        JScrollPane scroll = new JScrollPane(mensajeSalida);
+
+        panelResultados = new JPanel();
+        panelResultados.setBorder(BorderFactory.createTitledBorder("Qué debes hacer "));
+        panelResultados.add(scroll);
+        panelResultados.setPreferredSize(new Dimension(370,180));
+
+        this.add(panelResultados,BorderLayout.EAST);
+
+        resultadosDados = new JTextArea(4,31);
+        separator = new JSeparator();
+        separator.setPreferredSize(new Dimension(320,7));
+        separator.setBackground(Color.blue);
     }
 
     /**
@@ -108,7 +120,17 @@ public class GUI extends JFrame {
              dado2.setIcon(imageDado);
 
              modelCraps.determinarJuego();
-             resultados.setText(modelCraps.getEstadoToString());
+
+             panelResultados.removeAll();
+            panelResultados.setBorder(BorderFactory.createTitledBorder("Resultados "));
+             panelResultados.add(resultadosDados);
+             panelResultados.add(separator);
+             panelResultados.add(mensajeSalida);
+             resultadosDados.setText(modelCraps.getEstadoToString()[0]);
+             mensajeSalida.setRows(4);
+             mensajeSalida.setText(modelCraps.getEstadoToString()[1]);
+             revalidate();
+             repaint();
         }
     }
 }
